@@ -55,7 +55,7 @@ namespace ArdalisRating.Tests
         }
 
         [Fact]
-        public void CanReadFilePolicy()
+        public void CanReadFilePolicySource()
         {
             var policySource = new FilePolicySource();
 

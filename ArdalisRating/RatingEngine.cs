@@ -13,6 +13,8 @@ namespace ArdalisRating
     {
         public decimal Rating { get; set; }
         public ConsoleLogger Logger { get; set; } = new ConsoleLogger();
+
+        public FilePolicySource PolicySource { get; set; } = new FilePolicySource();
         public void Rate()
         {
             Logger.Log("Starting rate.");
@@ -20,7 +22,7 @@ namespace ArdalisRating
             Logger.Log("Loading policy.");
 
             // load policy - open file policy.json
-            string policyJson = File.ReadAllText("policy.json");
+            string policyJson = PolicySource.GetPolicyFromSource();
 
             var policy = JsonConvert.DeserializeObject<Policy>(policyJson,
                 new StringEnumConverter());
