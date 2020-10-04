@@ -15,7 +15,9 @@ namespace ArdalisRating
                 case PolicyType.Land:
                     return new LandPolicyRater(engine, engine.Logger);
                 case PolicyType.Auto:
-                    return new AutoPolicyRater(engine, engine.Logger);                   
+                    return new AutoPolicyRater(engine, engine.Logger);
+                case PolicyType.Flood:
+                    return new FloodPolicyRater(engine, engine.Logger);
                 default:
                     // TODO: Implement Null Object Pattern
                     // Logger.Log("Unknown Policy Type");
