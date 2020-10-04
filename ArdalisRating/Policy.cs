@@ -20,6 +20,10 @@ namespace ArdalisRating
         public decimal BondAmount { get; set; }
         #endregion
 
+        #region Flood In Addition To Land
+        public int ElevationAboveSeaLevelFeet { get; set; }
+        #endregion
+
         #region Auto
         public string Make { get; set; }
         public string Model { get; set; }
@@ -28,9 +32,7 @@ namespace ArdalisRating
         public decimal Deductible { get; set; }
         #endregion
 
-        #region Flood In Addition To Land
-        public int ElevationAboveSeaLevelFeet { get; set; }
-        #endregion
+        
 
     }
 }

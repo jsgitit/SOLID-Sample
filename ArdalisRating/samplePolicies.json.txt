@@ -59,5 +59,11 @@ LIFE Samples
   "amount": "10000000"
 }
 
-
+/* Flood Policy */
+{
+	"type": "Flood",
+	"bondAmount": "1000000",
+	"valuation": "1100000",
+	"elevationAboveSeaLevelFeet": "1001"
+}
 

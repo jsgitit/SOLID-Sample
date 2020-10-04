@@ -19,15 +19,16 @@ namespace ArdalisRating
 
             Logger.Log("Loading policy.");
 
-            // load policy - open file policy.json
+            // Load the policy file "policy.json"
             string policyJson = PolicySource.GetPolicyFromSource();
 
+            // TODO: handle if Policy.Type is unknown.
             var policy = PolicySerializer.GetPolicyFromJsonString(policyJson);
 
             var factory = new RaterFactory();
 
             var rater = factory.Create(policy, this);
-            rater.Rate(policy);
+            rater?.Rate(policy); // Rate() will not be called if rater is null.
 
             Logger.Log("Rating completed.");
         }
