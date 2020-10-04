@@ -4,17 +4,18 @@ using System.Text;
 
 namespace ArdalisRating
 {
-    public class LandPolicyRater
+    public class LandPolicyRater : Rater
     {
         private readonly RatingEngine engine;
         private ConsoleLogger logger;
 
-        public LandPolicyRater(RatingEngine engine, ConsoleLogger logger)
+        public LandPolicyRater(RatingEngine engine, ConsoleLogger logger) 
+            : base(engine, logger)
         {
             this.engine = engine;
             this.logger = logger;
         }
-        public void Rate(Policy policy)
+        public override void Rate(Policy policy)
         {
             logger.Log("Rating LAND policy...");
             logger.Log("Validating policy.");

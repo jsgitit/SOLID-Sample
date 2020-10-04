@@ -4,18 +4,19 @@ using System.Text;
 
 namespace ArdalisRating
 {
-    public class LifePolicyRater
+    public class LifePolicyRater : Rater
     {
         private readonly RatingEngine engine;
         private ConsoleLogger logger;
 
-        public LifePolicyRater(RatingEngine engine, ConsoleLogger logger)
+        public LifePolicyRater(RatingEngine engine, ConsoleLogger logger) :
+            base(engine, logger)
 
         {
             this.engine = engine;
             this.logger = logger;
         }
-        public void Rate(Policy policy)
+        public override void Rate(Policy policy)
         {
             logger.Log("Rating LIFE policy...");
             logger.Log("Validating policy.");
@@ -49,5 +50,6 @@ namespace ArdalisRating
             }
             engine.Rating = baseRate;
         }
+
     }
 }
