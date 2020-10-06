@@ -1,0 +1,6 @@
+﻿1. Subtypes must be substitutable for their base types.  Types have invariants.
+2. Look for type checking, null checking, and NotImplementedException 
+	- these indicate that subtypes are not fully substitutable. 
+
+There's been a few comments in the discussion illustrating issue with the RatingEngine.cs.  Namely, if you pass in an unknown policy type to be deserialized with this line: var policy = PolicySerializer.GetPolicyFromJsonString(policyJson); then you get an exception, "UnhandledException".  That makes sense because to this point, no error checking appears in the code on Github to deal with this situtation.  I'm not sure what to do in this case, but others have mentioned it in the forums. Otherwise good course so far.  tough material to learn, but appreciate the example code demonstrating the LSP violoations and how to resolve them.  That's how I learn best.
+ 

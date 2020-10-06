@@ -36,10 +36,10 @@ namespace ArdalisRating
             }
             catch
             {
-                // First fix for LSP - use Null Object Pattern to return an UnknownPolicyRating vs. null.
+                // First fix for LSP - use Null Object Pattern to return an UnknownPolicyRater object vs. null.
                 // return null; // null violates LSP, because we have to treat the type differently.
 
-
+                return new UnknownPolicyRater(engine, engine.Logger);
             }
         }
     }

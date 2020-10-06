@@ -28,7 +28,7 @@ namespace ArdalisRating
             var factory = new RaterFactory();
 
             var rater = factory.Create(policy, this);
-            rater?.Rate(policy); // Rate() will not be called if rater is null.
+            rater.Rate(policy); // since Rate() will never return null, we can remove the "?." operator here.
 
             Logger.Log("Rating completed.");
         }
