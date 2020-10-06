@@ -1,6 +1,4 @@
-﻿  using System;
-
-namespace ArdalisRating
+﻿namespace ArdalisRating
 {
     /// <summary>
     /// The RatingEngine reads the policy application details from a file and produces a numeric 
@@ -8,29 +6,31 @@ namespace ArdalisRating
     /// </summary>
     public class RatingEngine
     {
+        public IRatingContext Context { get; set; } = new DefaultRatingContext();
         public decimal Rating { get; set; }
-        public ConsoleLogger Logger { get; set; } = new ConsoleLogger();
-        public FilePolicySource PolicySource { get; set; } = new FilePolicySource();
-        public JsonPolicySerializer PolicySerializer { get; set; } = new JsonPolicySerializer();
 
+        public RatingEngine()
+        {
+            Context.Engine = this;
+        }
         public void Rate()
         {
-            Logger.Log("Starting rate.");
+            Context.Log("Starting rate.");
 
-            Logger.Log("Loading policy.");
+            Context.Log("Loading policy.");
 
             // Load the policy file "policy.json"
-            string policyJson = PolicySource.GetPolicyFromSource();
-
             // TODO: handle if Policy.Type is unknown.
-            var policy = PolicySerializer.GetPolicyFromJsonString(policyJson);
+            
+            string policyJson = Context.LoadPolicyFromFile();
 
-            var factory = new RaterFactory();
+            var policy = Context.GetPolicyFromJsonString(policyJson);
 
-            var rater = factory.Create(policy, this);
-            rater.Rate(policy); // since Rate() will never return null, we can remove the "?." operator here.
+            var rater = Context.CreateRaterForPolicy(policy, Context);
 
-            Logger.Log("Rating completed.");
+            rater.Rate(policy); 
+
+            Context.Log("Rating completed.");
         }
     }
 }

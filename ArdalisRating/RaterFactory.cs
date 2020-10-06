@@ -6,7 +6,7 @@ namespace ArdalisRating
 {
     public class RaterFactory
     {
-        public Rater Create(Policy policy, RatingEngine engine)
+        public Rater Create(Policy policy, IRatingContext context)
         {
             //switch (policy.Type)
             //{
@@ -32,14 +32,14 @@ namespace ArdalisRating
                 // assumes new policy class files will end in "PolicyRater" by naming convention.
                 // and, assumes new enum is added in PolicyType.cs
                 return (Rater)Activator.CreateInstance(Type.GetType($"ArdalisRating.{policy.Type}PolicyRater"),
-                    new object[] { engine, engine.Logger }); 
+                    new object[] { new RatingUpdater(context.Engine) }); 
             }
             catch
             {
                 // First fix for LSP - use Null Object Pattern to return an UnknownPolicyRater object vs. null.
                 // return null; // null violates LSP, because we have to treat the type differently.
 
-                return new UnknownPolicyRater(engine, engine.Logger);
+                return new UnknownPolicyRater(new RatingUpdater(context.Engine));
             }
         }
     }

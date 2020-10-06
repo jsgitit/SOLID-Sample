@@ -1,38 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ArdalisRating
 {
     public class LifePolicyRater : Rater
     {
-        private readonly RatingEngine engine;
-        private ConsoleLogger logger;
-
-        public LifePolicyRater(RatingEngine engine, ConsoleLogger logger) :
-            base(engine, logger)
-
+        public LifePolicyRater(IRatingUpdater ratingUpdater)
+            : base(ratingUpdater)
         {
-            this.engine = engine;
-            this.logger = logger;
         }
+
         public override void Rate(Policy policy)
         {
-            logger.Log("Rating LIFE policy...");
-            logger.Log("Validating policy.");
+            Logger.Log("Rating LIFE policy...");
+            Logger.Log("Validating policy.");
             if (policy.DateOfBirth == DateTime.MinValue)
             {
-                logger.Log("Life policy must include Date of Birth.");
+                Logger.Log("Life policy must include Date of Birth.");
                 return;
             }
             if (policy.DateOfBirth < DateTime.Today.AddYears(-100))
             {
-                logger.Log("Centenarians are not eligible for coverage.");
+                Logger.Log("Centenarians are not eligible for coverage.");
                 return;
             }
             if (policy.Amount == 0)
             {
-                logger.Log("Life policy must include an Amount.");
+                Logger.Log("Life policy must include an Amount.");
                 return;
             }
             int age = DateTime.Today.Year - policy.DateOfBirth.Year;
@@ -45,11 +38,10 @@ namespace ArdalisRating
             decimal baseRate = policy.Amount * age / 200;
             if (policy.IsSmoker)
             {
-                engine.Rating = baseRate * 2;
+                _ratingUpdater.UpdateRating(baseRate * 2);
                 return;
             }
-            engine.Rating = baseRate;
+            _ratingUpdater.UpdateRating(baseRate);
         }
-
     }
 }
