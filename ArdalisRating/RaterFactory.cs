@@ -36,7 +36,10 @@ namespace ArdalisRating
             }
             catch
             {
-                return null; // null is the expected behavior for any exception.
+                // First fix for LSP - use Null Object Pattern to return an UnknownPolicyRating vs. null.
+                // return null; // null violates LSP, because we have to treat the type differently.
+
+
             }
         }
     }
