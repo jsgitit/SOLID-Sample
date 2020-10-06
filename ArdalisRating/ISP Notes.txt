@@ -1,0 +1,9 @@
+﻿Key takeaways:
+
+1. Prefer small, cohesive interfaces to large, expansive ones.
+2. Following ISP helps with SRP and LSP
+3. Break up large interfaces, by using
+	- interface inheritence
+	- use Adapter design pattern 
+		(to allow new code to depend on a small cohesive interface, without breaking existing code that may use the larger interace.)
+
